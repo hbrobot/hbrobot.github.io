@@ -2,6 +2,7 @@ import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 
 import {products, type Product} from '@site/src/data/products';
@@ -13,14 +14,11 @@ import {
 import {
   ArrowRight,
   BookOpen,
-  Code,
   Cpu,
   Layers,
   LifeBuoy,
   MapIcon,
   Plus,
-  Rocket,
-  Sliders,
   Sparkles,
   Wrench,
 } from '@site/src/components/Icons';
@@ -30,66 +28,39 @@ import styles from './index.module.css';
 const stats = [
   {value: String(products.filter((product) => !product.placeholder).length), label: '已上线机型'},
   {value: String(products.length), label: '机型专区'},
-  {value: '3', label: '通用章节'},
+  {value: '4', label: '通用模块'},
   {value: String(tools.length), label: '调试工具'},
 ];
-
-const features = [
-  {
-    icon: Rocket,
-    color: 'mint',
-    title: '从开箱到跑通',
-    description: '开箱核对、上电自检、网络连接、第一次运动，按顺序一步步完成。',
-  },
-  {
-    icon: Sliders,
-    color: 'peach',
-    title: '参数可查可调',
-    description: '底盘运动学、激光雷达、IMU 与 Wi-Fi 参数，配示例文件与标定方法。',
-  },
-  {
-    icon: Code,
-    color: 'blue',
-    title: '代码直接复用',
-    description: 'Python 控制示例、ROS 2 通信、视觉与 YOLO 应用，贴近真实任务。',
-  },
-  {
-    icon: LifeBuoy,
-    color: 'lemon',
-    title: '问题有处可查',
-    description: 'FAQ、报错速查表与调试工具合集，遇到问题不用从头翻文档。',
-  },
-] as const;
 
 const learningPath = [
   {
     step: '01',
-    title: '认识你的机器人',
-    description: '先看产品定位、能力边界与规格参数。',
+    title: '产品认知',
+    description: '查看产品定位、能力范围、规格参数与安全说明。',
     to: '/amr-a',
     label: '产品概览',
     color: 'mint',
   },
   {
     step: '02',
-    title: '跑通第一次',
-    description: '完成开箱、上电、联网和第一次遥控运动。',
+    title: '首次上手',
+    description: '完成设备检查、上电、网络连接与基础运动测试。',
     to: '/amr-a/quick-start/device-check-and-boot',
-    label: '快速上手',
+    label: '快速开始',
     color: 'peach',
   },
   {
     step: '03',
-    title: '搭好开发环境',
-    description: '准备 Ubuntu、ROS 2、VS Code 与常用依赖。',
+    title: '开发准备',
+    description: '配置 Ubuntu、ROS 2、VS Code 与 Python 依赖。',
     to: '/docs/software/preparation',
     label: '环境配置',
     color: 'blue',
   },
   {
     step: '04',
-    title: '做出第一个应用',
-    description: '从速度控制到建图导航、视觉识别与综合任务。',
+    title: '应用开发',
+    description: '学习底盘控制、传感器、视觉识别与综合任务。',
     to: '/amr-a/applications',
     label: '控制与应用',
     color: 'lemon',
@@ -107,7 +78,7 @@ const modules = [
   },
   {
     title: '基础教学',
-    description: 'ROS 2 通信机制与 Python 编程基础，配套可运行示例',
+    description: 'ROS 2 通信机制与 Python 编程基础，配套示例',
     count: 16,
     icon: BookOpen,
     color: 'mint',
@@ -154,7 +125,39 @@ const faqLinks = [
   },
 ];
 
+function RobotPhoto({className}: {className: string}) {
+  const flagship = products[0];
+  const imageSrc = useBaseUrl(flagship.image ?? '');
+
+  return (
+    <img
+      src={imageSrc}
+      alt={`${flagship.name} ${flagship.nameZh} 实机照片`}
+      className={className}
+      width={900}
+      height={702}
+      decoding="async"
+    />
+  );
+}
+
 function ProductArt({product}: {product: Product}) {
+  const imageSrc = useBaseUrl(product.image ?? '');
+
+  if (product.image) {
+    return (
+      <img
+        src={imageSrc}
+        alt={`${product.name} ${product.nameZh} 实机照片`}
+        className={styles.productArtPhoto}
+        width={900}
+        height={702}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
+
   return product.illustration === 'amr-a' ? (
     <AmrAIllustration className={styles.productArtSvg} />
   ) : (
@@ -166,17 +169,15 @@ function SectionHeading({
   eyebrow,
   title,
   description,
-  align = 'left',
   id,
 }: {
   eyebrow: string;
   title: string;
   description?: string;
-  align?: 'left' | 'center';
   id?: string;
 }) {
   return (
-    <div className={clsx(styles.sectionHeading, align === 'center' && styles.center)}>
+    <div className={styles.sectionHeading}>
       <span className={styles.eyebrow}>
         <Sparkles className={styles.eyebrowIcon} />
         {eyebrow}
@@ -188,7 +189,6 @@ function SectionHeading({
 }
 
 function Hero() {
-  const {siteConfig} = useDocusaurusContext();
   const flagship = products[0];
   return (
     <header className={styles.hero}>
@@ -205,13 +205,14 @@ function Hero() {
             WS2024-Lyon Agri-AMR · 农业自主移动机器人
           </span>
           <h1>
-            把移动机器人的
+            移动机器人
             <br />
-            <span className={styles.highlight}>每一步</span>都讲清楚
+            <span className={styles.highlight}>技术文档</span>与开发手册
           </h1>
           <p className={styles.heroLead}>
-            {siteConfig.tagline}。产品专区覆盖开箱、联网、参数标定与导航应用，
-            通用章节提供 ROS 2、Python 与 Ultralytics YOLO 的开发基础。
+            WS2024-Lyon Agri-AMR 技术文档与通用开发手册。产品专区涵盖设备检查、
+            网络连接、参数标定与导航应用；通用章节提供 ROS 2、Python 与
+            Ultralytics YOLO 的开发基础。
           </p>
           <div className={styles.heroActions}>
             <Link className={styles.primaryButton} to="/amr-a">
@@ -221,7 +222,7 @@ function Hero() {
             <Link
               className={styles.ghostButton}
               to="/amr-a/quick-start/device-check-and-boot">
-              从快速上手开始
+              快速上手
             </Link>
           </div>
           <div className={styles.stats}>
@@ -237,7 +238,7 @@ function Hero() {
         <div className={styles.heroVisual}>
           <div className={styles.visualCard}>
             <span className={styles.visualTag}>Agri-AMR / ROS 2</span>
-            <AmrAIllustration className={styles.heroRobot} />
+            <RobotPhoto className={styles.heroRobotPhoto} />
             <span className={clsx(styles.chip, styles.chipSlam)}>SLAM</span>
             <span className={clsx(styles.chip, styles.chipNav)}>Nav2</span>
             <span className={clsx(styles.chip, styles.chipYolo)}>YOLO</span>
@@ -272,8 +273,8 @@ function Products() {
         <SectionHeading
           id="products"
           eyebrow="Product Docs"
-          title="先选机型，再开始探索"
-          description="WS2024-Lyon Agri-AMR 已上线完整文档；WS2026 专区已预留，正式资料确认后逐步补充。通用教程全系列共享。"
+          title="产品文档"
+          description="WS2024-Lyon Agri-AMR 文档已上线；WS2026 专区保留入口，正式资料确认后补充。"
         />
         <div className={styles.productGrid}>
           {products.map((product) => (
@@ -326,8 +327,8 @@ function Products() {
               <Plus />
             </div>
             <div>
-              <strong>更多机型，持续接入</strong>
-              <p>WS2026 之后的机型也会沿用同一产品结构接入，不影响现有文档。</p>
+              <strong>更多机型文档</strong>
+              <p>后续机型将沿用现有产品文档结构，相关章节随资料确认后补充。</p>
             </div>
           </div>
         </div>
@@ -336,16 +337,16 @@ function Products() {
   );
 }
 
-function LearningPath() {
+function LearningAndModules() {
   return (
-    <section className={styles.pathSection}>
+    <section className={styles.learningSection}>
       <div className="container">
         <SectionHeading
-          eyebrow="Learning Path"
-          title="不知道从哪里开始？跟着这条路径走"
-          description="四步完成从陌生到上手，每一步都配有对应的文档入口。"
-          align="center"
+          eyebrow="Documentation Map"
+          title="学习路径与内容模块"
+          description="按产品上手顺序查阅文档；通用内容按知识模块组织。"
         />
+
         <div className={styles.pathGrid}>
           {learningPath.map((item, index) => (
             <Link key={item.step} to={item.to} className={styles.pathCard}>
@@ -362,48 +363,19 @@ function LearningPath() {
             </Link>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
 
-function Features() {
-  return (
-    <section className={styles.section}>
-      <div className="container">
-        <SectionHeading
-          eyebrow="Why Here"
-          title="为真实调试场景而写"
-          description="不堆概念，尽量把每一步的条件、现象和排查方法写清楚。"
-        />
-        <div className={styles.featureGrid}>
-          {features.map((feature) => {
-            const Icon = feature.icon;
-            return (
-              <div key={feature.title} className={styles.featureCard}>
-                <div className={clsx(styles.featureIcon, styles[feature.color])}>
-                  <Icon />
-                </div>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-              </div>
-            );
-          })}
+        <div className={styles.moduleSectionHead}>
+          <div>
+            <span className={styles.moduleEyebrow}>Common Modules</span>
+            <h3>通用内容模块</h3>
+            <p>覆盖开发环境、ROS 2/Python 基础、YOLO 与常见问题。</p>
+          </div>
+          <Link to="/docs" className={styles.textLink}>
+            完整文档目录
+            <ArrowRight className={styles.buttonIcon} />
+          </Link>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function Modules() {
-  return (
-    <section className={styles.moduleSection}>
-      <div className="container">
-        <SectionHeading
-          eyebrow="Knowledge Map"
-          title="通用内容，按需查阅"
-          description="开发环境、ROS 2/Python 基础与 Ultralytics YOLO 独立成章，所有机型共享。"
-        />
         <div className={styles.moduleGrid}>
           {modules.map((module) => {
             const Icon = module.icon;
@@ -424,12 +396,6 @@ function Modules() {
             );
           })}
         </div>
-        <div className={styles.moduleFooter}>
-          <Link to="/docs" className={styles.textLink}>
-            查看完整文档目录
-            <ArrowRight className={styles.buttonIcon} />
-          </Link>
-        </div>
       </div>
     </section>
   );
@@ -441,14 +407,14 @@ function ToolsSection() {
       <div className="container">
         <div className={styles.toolsPanel}>
           <div className={styles.toolsIntro}>
-            <span className={styles.toolsEyebrow}>Toolbox · 独立栏目</span>
-            <h2>调试工具，不再藏在文档里</h2>
+            <span className={styles.toolsEyebrow}>Toolbox</span>
+            <h2>调试工具</h2>
             <p>
-              底盘配置、运动标定、地图编辑与导航调试工具集中维护，版本信息直接读取
-              GitHub Releases。后续工具会按分类持续接入。
+              集中提供底盘配置、运动标定、地图编辑与导航调试工具。工具分类、版本与
+              下载资源统一维护，版本信息读取自 GitHub Releases。
             </p>
             <Link className={styles.toolsCta} to="/tools">
-              打开调试工具
+              查看全部工具
               <ArrowRight className={styles.buttonIcon} />
             </Link>
           </div>
@@ -476,8 +442,8 @@ function ToolsSection() {
             })}
             <div className={styles.toolMore}>
               <Wrench />
-              <strong>更多工具持续接入</strong>
-              <p>新增工具只需要在工具数据中追加一条记录。</p>
+              <strong>工具目录持续扩展</strong>
+              <p>新增工具会登记分类、版本与下载资源。</p>
             </div>
           </div>
         </div>
@@ -494,11 +460,11 @@ function FaqPreview() {
           <div className={styles.faqIntro}>
             <SectionHeading
               eyebrow="Troubleshooting"
-              title="卡住了？先看这里"
-              description="把最常见的网络、定位、运动与通信问题整理成了快速排查入口。"
+              title="常见问题速查"
+              description="汇总网络、定位、运动与 ROS 2 通信等常见问题，提供快速排查入口。"
             />
             <Link className={styles.primaryButton} to="/docs/faq/faq-overview">
-              打开常见问题
+              查看常见问题
               <ArrowRight className={styles.buttonIcon} />
             </Link>
           </div>
@@ -525,23 +491,23 @@ function CtaBand() {
           <div className={styles.ctaBlobMint} aria-hidden="true" />
           <div className={styles.ctaBlobPeach} aria-hidden="true" />
           <div className={styles.ctaContent}>
-            <span className={styles.ctaEyebrow}>Ready to move?</span>
-            <h2>准备好让机器人动起来了吗？</h2>
-            <p>从 WS2024-Lyon Agri-AMR 的开箱检查开始，或先浏览通用文档。</p>
+            <span className={styles.ctaEyebrow}>Get Started</span>
+            <h2>开始使用 WS2024-Lyon Agri-AMR</h2>
+            <p>从设备检查与首次上电开始，或浏览完整文档目录。</p>
             <div className={styles.ctaActions}>
               <Link
                 className={styles.ctaPrimary}
                 to="/amr-a/quick-start/device-check-and-boot">
-                开始快速上手
+                快速上手
                 <ArrowRight className={styles.buttonIcon} />
               </Link>
               <Link className={styles.ctaGhost} to="/docs">
-                浏览文档总览
+                文档总览
               </Link>
             </div>
           </div>
           <div className={styles.ctaArt} aria-hidden="true">
-            <AmrAIllustration />
+            <RobotPhoto className={styles.ctaPhoto} />
           </div>
         </div>
       </div>
@@ -558,9 +524,7 @@ export default function Home(): ReactNode {
       <Hero />
       <main>
         <Products />
-        <LearningPath />
-        <Features />
-        <Modules />
+        <LearningAndModules />
         <ToolsSection />
         <FaqPreview />
         <CtaBand />

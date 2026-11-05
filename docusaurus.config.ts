@@ -40,8 +40,7 @@ const config: Config = {
   url: siteUrl,
   baseUrl,
   organizationName: process.env.GITHUB_REPOSITORY_OWNER || 'hbrobot',
-  projectName:
-    process.env.GITHUB_REPOSITORY?.split('/')[1] || 'hbrobot.github.io',
+  projectName: process.env.GITHUB_REPOSITORY?.split('/')[1] || 'hbrobot',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
@@ -205,8 +204,8 @@ const config: Config = {
           items: [
             {label: '文档总览', to: '/docs'},
             {label: '更新日志', to: '/blog'},
-            {label: '提交 Issue', href: 'https://github.com/hbrobot/hbrobot.github.io/issues'},
-            {label: '提交 PR', href: 'https://github.com/hbrobot/hbrobot.github.io/compare'},
+            {label: '提交 Issue', href: 'https://github.com/hbrobot/hbrobot/issues'},
+            {label: '提交 PR', href: 'https://github.com/hbrobot/hbrobot/compare'},
           ],
         },
       ],

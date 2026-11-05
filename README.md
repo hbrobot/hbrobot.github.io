@@ -2,6 +2,8 @@
 
 基于 [Docusaurus 3](https://docusaurus.io/) 的自主移动机器人技术文档站。中文站点，糖果马卡龙主题，支持多机型文档实例、独立工具栏目、全文搜索、Mermaid、KaTeX 与 GitHub Pages 自动部署。
 
+当前部署仓库：`hbrobot/hbrobot`，站点地址：`https://hbrobot.github.io/hbrobot/`。
+
 内容由原 MkDocs 站点（`hbrobot/hbrobot.github.io`）迁移并重新组织。
 
 ## 内容架构
@@ -27,7 +29,7 @@ npm run typecheck  # TypeScript 类型检查
 npm run clear      # 清理 Docusaurus 缓存
 ```
 
-> 本地默认使用根路径 `/`。如果部署为项目站点（如 `/robot-docs/`），构建时设置 `BASE_URL=/robot-docs/`。
+> 本地默认使用根路径 `/`。当前项目站点部署路径为 `/hbrobot/`，线上地址为 `https://hbrobot.github.io/hbrobot/`；GitHub Actions 会自动注入该路径。
 
 ## 目录结构
 
@@ -133,18 +135,23 @@ src/data/products.ts
 
 | 变量 | 说明 | 默认值 |
 | --- | --- | --- |
-| `SITE_URL` | 站点完整地址，如 `https://hbrobot.github.io` | `https://hbrobot.github.io` |
-| `BASE_URL` | 站点路径，组织主页为 `/`，项目站点为 `/仓库名/` | `/` |
+| `SITE_URL` | 站点完整地址 | `https://hbrobot.github.io` |
+| `BASE_URL` | 站点路径，本地开发为 `/`，当前项目站点为 `/hbrobot/` | `/` |
 
-`.github/workflows/deploy.yml` 使用 `actions/configure-pages` 自动读取仓库的 Pages 地址，并注入 `SITE_URL` / `BASE_URL`。
+`.github/workflows/deploy.yml` 使用 `actions/configure-pages` 自动读取仓库的 Pages 地址，并注入 `SITE_URL` / `BASE_URL`。推送到 `main` 后不需要手工修改路径。
+
+如需在本地生成与线上一致的构建产物：
+
+```bash
+SITE_URL=https://hbrobot.github.io BASE_URL=/hbrobot/ npm run build
+```
 
 启用步骤：
 
-1. 推送仓库到 GitHub。
+1. 推送仓库 `hbrobot/hbrobot` 到 GitHub。
 2. 仓库 **Settings → Pages → Source** 选择 **GitHub Actions**。
 3. 推送 `main` 分支，等待 Actions 完成部署。
-
-如果沿用组织主页仓库 `hbrobot/hbrobot.github.io`，`BASE_URL` 为 `/`，访问地址是 `https://hbrobot.github.io/`。
+4. 访问 `https://hbrobot.github.io/hbrobot/`。
 
 ## 内容迁移说明
 

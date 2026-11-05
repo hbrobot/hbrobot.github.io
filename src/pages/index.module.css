@@ -248,22 +248,14 @@
   border-radius: 999px;
 }
 
-.heroRobot {
+.heroRobotPhoto {
   display: block;
   width: 100%;
+  max-width: 430px;
   height: auto;
-  filter: drop-shadow(0 20px 28px rgba(52, 120, 104, 0.16));
-  animation: bob 6s ease-in-out infinite;
-}
-
-@keyframes bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-7px);
-  }
+  margin: 1rem auto 0.45rem;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 28px rgba(52, 120, 104, 0.18));
 }
 
 .chip {
@@ -417,12 +409,6 @@
 .sectionHeading {
   max-width: 46rem;
   margin-bottom: 2.4rem;
-}
-
-.center {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
 }
 
 .eyebrow {
@@ -634,7 +620,7 @@
   align-items: flex-end;
   justify-content: center;
   min-width: 0;
-  padding: 0 0.2rem 0 0;
+  padding: 0 0.2rem 0.65rem 0;
 }
 
 .productArt::before {
@@ -649,7 +635,8 @@
   filter: blur(4px);
 }
 
-.productArtSvg {
+.productArtSvg,
+.productArtPhoto {
   position: relative;
   z-index: 1;
   width: 112%;
@@ -660,7 +647,14 @@
   transition: transform 0.35s ease;
 }
 
-.productCard:hover .productArtSvg {
+.productArtPhoto {
+  object-fit: contain;
+  transform-origin: bottom center;
+  transform: translateX(4%);
+}
+
+.productCard:hover .productArtSvg,
+.productCard:hover .productArtPhoto {
   transform: translateX(4%) translateY(0) scale(1.02);
 }
 
@@ -704,13 +698,13 @@
   color: #5f6f73;
 }
 
-/* ================= 学习路径 ================= */
+/* ================= 学习路径与通用模块 ================= */
 
-.pathSection {
+.learningSection {
   padding: 5.5rem 0;
   background:
     radial-gradient(700px 320px at 15% 20%, rgba(255, 217, 125, 0.16), transparent 60%),
-    linear-gradient(180deg, #fff9f1 0%, #fffdf8 100%);
+    linear-gradient(180deg, #fff9f1 0%, #f7f5ee 100%);
   border-top: 1px solid rgba(33, 51, 58, 0.05);
   border-bottom: 1px solid rgba(33, 51, 58, 0.05);
 }
@@ -815,83 +809,37 @@
   transform: translateX(3px);
 }
 
-/* ================= 特性 ================= */
+/* ================= 通用内容模块 ================= */
 
-.featureGrid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.2rem;
-}
-
-.featureCard {
-  padding: 1.5rem 1.35rem;
-  border-radius: 24px;
-  background: #fff;
-  border: 1px solid rgba(33, 51, 58, 0.07);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.featureCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 34px rgba(42, 86, 76, 0.09);
-}
-
-.featureIcon {
+.moduleSectionHead {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  margin-bottom: 1rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 3rem 0 1rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid rgba(33, 51, 58, 0.08);
 }
 
-.featureIcon svg {
-  width: 24px;
-  height: 24px;
+.moduleEyebrow {
+  color: #0b7f6a;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
-.featureIcon.mint {
-  background: #d9fff3;
-  color: #12856d;
-}
-
-.featureIcon.peach {
-  background: #ffe7de;
-  color: #bd5a45;
-}
-
-.featureIcon.blue {
-  background: #e2f1ff;
-  color: #2f6ea8;
-}
-
-.featureIcon.lemon {
-  background: #fff5c9;
-  color: #987414;
-}
-
-.featureCard h3 {
-  margin: 0 0 0.45rem;
-  font-size: 1rem;
-  letter-spacing: -0.01em;
+.moduleSectionHead h3 {
+  margin: 0.3rem 0 0.25rem;
   color: #263d43;
+  font-size: 1.28rem;
+  letter-spacing: -0.025em;
 }
 
-.featureCard p {
+.moduleSectionHead p {
   margin: 0;
-  font-size: 0.84rem;
-  line-height: 1.75;
   color: #5f6f73;
-}
-
-/* ================= 文档地图 ================= */
-
-.moduleSection {
-  padding: 5.5rem 0;
-  background: #f7f5ee;
-  border-top: 1px solid rgba(33, 51, 58, 0.05);
-  border-bottom: 1px solid rgba(33, 51, 58, 0.05);
+  font-size: 0.84rem;
 }
 
 .moduleGrid {
@@ -1007,11 +955,6 @@
   opacity: 1;
   transform: translateX(0);
   color: #15947a;
-}
-
-.moduleFooter {
-  margin-top: 1.8rem;
-  text-align: center;
 }
 
 .textLink {
@@ -1220,11 +1163,14 @@
   min-width: 0;
 }
 
-.ctaArt svg {
+.ctaArt svg,
+.ctaArt img {
   display: block;
   width: 100%;
   max-width: 360px;
+  height: auto;
   margin: 0 auto;
+  object-fit: contain;
   filter: drop-shadow(0 18px 24px rgba(44, 86, 76, 0.16));
 }
 
@@ -1448,9 +1394,9 @@
 
 [data-theme='dark'] .heroLead,
 [data-theme='dark'] .sectionHeading p,
-[data-theme='dark'] .featureCard p,
 [data-theme='dark'] .pathCard p,
 [data-theme='dark'] .moduleBody p,
+[data-theme='dark'] .moduleSectionHead p,
 [data-theme='dark'] .moreProduct p,
 [data-theme='dark'] .ctaContent p {
   color: #9fb2b8;
@@ -1461,7 +1407,6 @@
 [data-theme='dark'] .visualCard,
 [data-theme='dark'] .visualBadge,
 [data-theme='dark'] .pathCard,
-[data-theme='dark'] .featureCard,
 [data-theme='dark'] .moduleCard,
 [data-theme='dark'] .faqList,
 [data-theme='dark'] .moreProduct {
@@ -1540,6 +1485,14 @@
   background: linear-gradient(145deg, #38241f 0%, #4a2b25 55%, #5b332b 100%);
 }
 
+[data-theme='dark'] .productCard.blue {
+  background: linear-gradient(145deg, #172a3d 0%, #1d3852 55%, #24445f 100%);
+}
+
+[data-theme='dark'] .productCard.lemon {
+  background: linear-gradient(145deg, #332d17 0%, #453c1d 55%, #574b24 100%);
+}
+
 [data-theme='dark'] .productCard h3,
 [data-theme='dark'] .productSubtitle,
 [data-theme='dark'] .productDescription,
@@ -1547,8 +1500,8 @@
 [data-theme='dark'] .productLinks,
 [data-theme='dark'] .productStatus,
 [data-theme='dark'] .productTags span,
-[data-theme='dark'] .featureCard h3,
 [data-theme='dark'] .pathCard h3,
+[data-theme='dark'] .moduleSectionHead h3,
 [data-theme='dark'] .moduleTitleRow h3,
 [data-theme='dark'] .faqQuestion,
 [data-theme='dark'] .moreProduct strong {
@@ -1576,16 +1529,19 @@
   color: #7fe3c4;
 }
 
-[data-theme='dark'] .pathSection {
+[data-theme='dark'] .learningSection {
   background:
     radial-gradient(700px 320px at 15% 20%, rgba(255, 217, 125, 0.06), transparent 60%),
     linear-gradient(180deg, #151e26 0%, #121a21 100%);
   border-color: rgba(255, 255, 255, 0.05);
 }
 
-[data-theme='dark'] .moduleSection {
-  background: #131c23;
-  border-color: rgba(255, 255, 255, 0.05);
+[data-theme='dark'] .moduleEyebrow {
+  color: #7fe3c4;
+}
+
+[data-theme='dark'] .moduleSectionHead {
+  border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme='dark'] .moduleTitleRow span {
@@ -1728,8 +1684,7 @@
     min-height: 300px;
   }
 
-  .pathGrid,
-  .featureGrid {
+  .pathGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1756,8 +1711,7 @@
   }
 
   .section,
-  .pathSection,
-  .moduleSection,
+  .learningSection,
   .toolsSection {
     padding: 4rem 0;
   }
@@ -1796,23 +1750,32 @@
   }
 
   .productArt {
-    padding: 0 1rem;
+    padding: 0.25rem 1rem 0.75rem;
   }
 
-  .productArtSvg {
+  .productArtSvg,
+  .productArtPhoto {
     width: 100%;
     max-width: 300px;
     transform: none;
   }
 
-  .productCard:hover .productArtSvg {
+  .productCard:hover .productArtSvg,
+  .productCard:hover .productArtPhoto {
     transform: scale(1.02);
   }
 
   .pathGrid,
-  .featureGrid,
   .moduleGrid {
     grid-template-columns: 1fr;
+  }
+
+  .moduleSectionHead {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 2.2rem;
+    padding-top: 1.8rem;
   }
 
   .toolGrid {
@@ -1858,7 +1821,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroRobot,
   .chip,
   .badgeDot {
     animation: none;

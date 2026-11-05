@@ -29,6 +29,8 @@ export type Product = {
   accent: ProductAccent;
   /** 首页/产品页插图 */
   illustration: 'amr-a' | 'amr-b';
+  /** 真实机器照片，存在时优先于插图显示 */
+  image?: string;
   /** 文档完善状态 */
   status: string;
   /** 预留机型：显示入口，但暂不提供完整文档 */
@@ -47,6 +49,7 @@ export const products: Product[] = [
     tags: ['ROS 2', '农业场景', '激光导航', '二次开发'],
     accent: 'mint',
     illustration: 'amr-a',
+    image: 'img/products/ws2024-lyon-agri-amr.png',
     status: '资料完善中',
   },
   {
