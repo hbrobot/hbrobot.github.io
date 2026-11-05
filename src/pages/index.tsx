@@ -205,7 +205,7 @@ function Hero() {
             WS2024-Lyon Agri-AMR · 农业自主移动机器人
           </span>
           <h1>
-            移动机器人
+            自主移动机器人
             <br />
             <span className={styles.highlight}>技术文档</span>与开发手册
           </h1>
