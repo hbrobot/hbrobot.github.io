@@ -180,7 +180,7 @@ export default function ToolCatalog(): ReactNode {
             </a>
             <a
               className={styles.secondaryAction}
-              href="https://github.com/hbrobot/hbrobot/issues/new"
+              href="https://github.com/hbrobot/hbrobot.github.io/issues/new"
               target="_blank"
               rel="noreferrer">
               推荐或反馈工具
