@@ -211,7 +211,7 @@ function Hero() {
           </h1>
           <p className={styles.heroLead}>
             WS2024-Lyon Agri-AMR 技术文档与通用开发手册。产品专区涵盖设备检查、
-            网络连接、参数标定与导航应用；通用章节提供 ROS 2、Python 与
+            网络连接、参数标定与控制应用；通用章节提供 ROS 2、Python 与
             Ultralytics YOLO 的开发基础。
           </p>
           <div className={styles.heroActions}>

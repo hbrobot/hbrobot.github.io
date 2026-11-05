@@ -109,7 +109,6 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
-    {type: 'doc', id: 'navigation', label: '导航与调参'},
     {type: 'doc', id: 'maintenance', label: '维护与安全'},
     {
       type: 'category',

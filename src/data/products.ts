@@ -45,7 +45,7 @@ export const products: Product[] = [
     menuLabel: 'WS2024-Lyon Agri-AMR',
     subtitle: '农业自主移动机器人 · 教学与科研',
     description:
-      '面向农业场景的自主移动机器人平台，覆盖开箱调试、底盘参数、导航部署、传感器应用与二次开发，适合教学实训、算法验证和田间任务联调。',
+      '面向农业场景的自主移动机器人平台，覆盖开箱调试、底盘参数、控制应用、传感器应用与二次开发，适合教学实训、算法验证和田间任务联调。',
     tags: ['ROS 2', '农业场景', '激光导航', '二次开发'],
     accent: 'mint',
     illustration: 'amr-a',

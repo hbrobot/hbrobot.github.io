@@ -11,7 +11,6 @@ import {
   BookOpen,
   Bot,
   Code,
-  Compass,
   Cpu,
   Layers,
   LifeBuoy,
@@ -62,14 +61,6 @@ const productModules = [
     icon: Code,
     color: 'blue',
     to: '/amr-a/applications',
-  },
-  {
-    title: '导航与调参',
-    description: '建图、AMCL 定位与 Nav2 参数调整建议。',
-    count: 1,
-    icon: Compass,
-    color: 'mint',
-    to: '/amr-a/navigation',
   },
   {
     title: '维护与安全',
@@ -142,7 +133,7 @@ const firstSteps = [
   },
   {
     title: '做第一个应用',
-    description: '从底盘速度控制开始，逐步进入导航、视觉与综合任务。',
+    description: '从底盘速度控制开始，逐步进入视觉与综合任务。',
     to: '/amr-a/applications',
   },
 ];
