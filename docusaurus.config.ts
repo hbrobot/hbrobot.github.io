@@ -90,7 +90,7 @@ const config: Config = {
         blog: {
           routeBasePath: 'blog',
           blogTitle: '更新日志',
-          blogDescription: '站点更新、内容上新与版本变更记录。',
+          blogDescription: '记录站点版本、文档内容与功能变更。',
           postsPerPage: 'ALL',
           blogSidebarTitle: '最近更新',
           blogSidebarCount: 'ALL',
